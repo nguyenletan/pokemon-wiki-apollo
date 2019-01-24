@@ -14,8 +14,8 @@ class PokemonHub extends RESTDataSource {
   }
 
   async getPokemonById(id, form='') {
-    console.log(id);
-    console.log(`pokemon/${id}?form=${form}`);
+    // console.log(id);
+    // console.log(`pokemon/${id}?form=${form}`);
     const pokemon = await this.get(`pokemon/${id}?form=${form}`);
 
     if(pokemon !== null && pokemon.family !== null ) {
@@ -36,7 +36,7 @@ class PokemonHub extends RESTDataSource {
   }
 
   async getGen1Pokemon(gen) {
-    
+  
   }
 }
 
