@@ -252,6 +252,8 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
+  introspection: true,
+  playground: true,
   typeDefs,
   resolvers,
   dataSources: () => ({RandomUser: new RandomUser(), Pokemon: new Pokemon(), PokemonHub: new PokemonHub()})
