@@ -252,6 +252,7 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
+  cors: true,
   introspection: true,
   playground: true,
   typeDefs,
