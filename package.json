@@ -6,10 +6,11 @@
     "apollo-server": "2.1.0",
     "graphql": "14.0.2"
   },
+  "node": "11.x",
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js localhost 4000",
+    "start": "node src/index.js",
     "start:lambda": "netlify-lambda serve src",
     "build": "netlify-lambda build src"
   },
