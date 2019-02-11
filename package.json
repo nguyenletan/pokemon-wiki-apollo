@@ -11,6 +11,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "dev": "nodemon --inspect src/index.js 4000",
     "start:lambda": "netlify-lambda serve src",
     "build": "netlify-lambda build src"
   },

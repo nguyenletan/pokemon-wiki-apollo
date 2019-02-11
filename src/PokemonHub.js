@@ -1,4 +1,4 @@
-const {RESTDataSource} = require("apollo-datasource-rest");
+const { RESTDataSource } = require("apollo-datasource-rest");
 
 class PokemonHub extends RESTDataSource {
   constructor() {
@@ -7,22 +7,22 @@ class PokemonHub extends RESTDataSource {
     this.baseURL = "https://db.pokemongohub.net/api/";
   }
 
-  async getPokemonByName(name = '') {
+  async getPokemonByName(name = "") {
     const pokemon = await this.get(`pokemon/${name}/`);
     //console.log(pokemon);
     return pokemon;
   }
 
-  async getPokemonById(id, form='') {
+  async getPokemonById(id, form = "") {
     // console.log(id);
     // console.log(`pokemon/${id}?form=${form}`);
     const pokemon = await this.get(`pokemon/${id}?form=${form}`);
 
-    if(pokemon !== null && pokemon.family !== null ) {
+    if (pokemon !== null && pokemon.family !== null) {
       pokemon.family = pokemon.family.map((member, index) => {
         member.index = member.id;
-        if(member.form !== null) {
-          member.id = member.id + '000' + index;
+        if (member.form !== null) {
+          member.id = member.id + "000" + index;
         }
         return member;
       });
@@ -35,8 +35,20 @@ class PokemonHub extends RESTDataSource {
     return movesets;
   }
 
-  async getGen1Pokemon(gen) {
-  
+  async getPokemonsByGen(gen) {
+    //console.log(gen);
+    let pokemons = await this.get(`pokemon/with-generation/${gen}`);
+    //console.log(pokemons);
+    if (pokemons !== null) {
+      pokemons = pokemons.map((member, index) => {
+        member.index = member.id;
+        if (member.form !== null) {
+          member.id = member.id + "000" + index;
+        }
+        return member;
+      });
+    }
+    return pokemons;
   }
 }
 

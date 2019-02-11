@@ -102,6 +102,7 @@ const typeDefs = gql `
     typeChart: [TypeChart]
     sprites: Sprites
     types: [PokemonTypes]
+    index: Int
   }
 
   type Move {
@@ -198,6 +199,7 @@ const typeDefs = gql `
 
     getPokemonFromHub(name: String): Pokemon
     getPokemonById(id: Int, form: String): Pokemon
+    getPokemonsByGen(gen: Int): [Pokemon]
 
     getMoveSets(id: Int): [MoveSet]
   }
@@ -243,6 +245,10 @@ const resolvers = {
     getPokemonById: async(_, {id, form}, {dataSources}) => dataSources
         .PokemonHub
         .getPokemonById(id, form),
+
+    getPokemonsByGen: async(_, {gen}, {dataSources}) => dataSources
+        .PokemonHub
+        .getPokemonsByGen(gen),
 
     getMoveSets: async(_, {
         id
