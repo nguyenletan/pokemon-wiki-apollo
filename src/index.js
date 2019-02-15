@@ -1,5 +1,4 @@
 const {ApolloServer, gql} = require("apollo-server");
-const RandomUser = require("./RandomUser.js");
 const Pokemon = require("./Pokemon.js");
 const PokemonHub = require("./PokemonHub.js");
 
@@ -147,50 +146,7 @@ const typeDefs = gql `
     pokemon: PokemonsItem
   }
 
-  type Name {
-    title: String
-    first: String
-    last: String
-  }
-
-  type TimeZone {
-    description: String
-    offset: String
-  }
-
-  type Location {
-    street: String
-    city: String
-    state: String
-    postcode: String,
-    timezone: TimeZone
-  }
-
-  type Picture {
-    large: String
-    medium: String
-    thumbnail: String
-  }
-
-  type Login {
-    username: String
-  }
-
-  type User {
-    gender: String
-    name: Name
-    location: Location
-    email: String
-    phone: String
-    cell: String
-    picture: Picture
-    nat: String
-    login: Login
-  }
-
   type Query {
-    getUser(gender: String): User
-    getUsers(people: Int, gender: String): [User]
 
     getPokemon(id: Int): Pokemon
     getPokemons(limit: Int, offset: Int): [PokemonsItem]
@@ -207,18 +163,6 @@ const typeDefs = gql `
 
 const resolvers = {
   Query: {
-    getUser: async(_, {
-      gender
-    }, {dataSources}) => dataSources
-      .RandomUser
-      .getUser(gender),
-
-    getUsers: async(_, {
-      people,
-      gender
-    }, {dataSources}) => dataSources
-      .RandomUser
-      .getUsers(people, gender),
 
     getPokemon: async(_, {
       id
@@ -263,7 +207,7 @@ const server = new ApolloServer({
   playground: true,
   typeDefs,
   resolvers,
-  dataSources: () => ({RandomUser: new RandomUser(), Pokemon: new Pokemon(), PokemonHub: new PokemonHub()})
+  dataSources: () => ({ Pokemon: new Pokemon(), PokemonHub: new PokemonHub() })
 });
 
 server
